@@ -11,20 +11,23 @@ package hdt7;
  * @author Shin
  */
 public class Arbol {
-    int frecuencia;
-    String codigo;
-    String chara=null;
-    Arbol left=null;
-    Arbol right=null;
-    
-    public Arbol(Arbol iz, Arbol der, String name){
+    //atributos
+    private int frecuencia;
+    private String codigo="";
+    private char chara;
+    private Arbol left=null;
+    private Arbol right=null;
+    //Constructor
+    public Arbol(Arbol iz, Arbol der, char name){
         left=iz;
         right=der;
         chara=name;
-        
+        //Si tiene dos hijos, este tiene una frecuencia igual a la suma de los dos.
+        if (iz!=null && der!=null){
         frecuencia = iz.getFrecuencia()+der.getFrecuencia();
+        }
     }
-
+    //SETS Y GETS
     public int getFrecuencia() {
         return frecuencia;
     }
@@ -37,15 +40,21 @@ public class Arbol {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(String codigo,String add) {
         this.codigo = codigo;
+        if (left!=null){
+            left.setCodigo(add+left.getCodigo(),add);
+        }
+        if (right!=null){
+            right.setCodigo(add+right.getCodigo(),add);
+        }
     }
 
-    public String getChara() {
+    public char getChara() {
         return chara;
     }
 
-    public void setChara(String chara) {
+    public void setChara(char chara) {
         this.chara = chara;
     }
 
